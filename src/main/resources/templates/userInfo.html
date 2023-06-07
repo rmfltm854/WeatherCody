@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Product Details | E-Shopper</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	<link href="scss/review.scss" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<script>
+	function openPop() {
+		document.getElementById("popup_layer").style.display = "block";
+
+	}
+
+	//팝업 닫기
+	function closePop() {
+		document.getElementById("popup_layer").style.display = "none";
+	}
+</script>
+
+<style>
+	/*popup*/
+	.popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); }
+	/*팝업 박스*/
+	.popup_box{position: relative;top:50%;left:50%; overflow: auto; height: 600px; width:375px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+	/*컨텐츠 영역*/
+	.popup_box .popup_cont {padding:50px;line-height:1.4rem;font-size:14px; }
+	.popup_box .popup_cont h2 {padding:15px 0;color:#333;margin:0;}
+	.popup_box .popup_cont p{ border-top: 1px solid #666;padding-top: 30px;}
+	/*버튼영역*/
+	.popup_box .popup_btn {display:table;table-layout: fixed;width:100%;height:70px;background:#ECECEC;word-break: break-word;}
+	.popup_box .popup_btn a {position: relative; display: table-cell; height:70px;  font-size:17px;text-align:center;vertical-align:middle;text-decoration:none; background:#ECECEC;}
+	.popup_box .popup_btn a:before{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+	.popup_box .popup_btn a:after{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+	.popup_box .popup_btn a.close_day {background:#5d5d5d;}
+	.popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after{display:none;}
+	/*오버레이 뒷배경*/
+	.popup_overlay{position:fixed;top:0px;right:0;left:0;bottom:0;z-index:1001;;background:rgba(0,0,0,0.5);}
+	/*popup*/
+</style>
+<style>
+	.starpoint_wrap{display:inline-block;}
+	.starpoint_box{position:relative;background:url(https://ido-archive.github.io/svc/etc/element/img/sp_star.png) 0 0 no-repeat;font-size:0;}
+	.starpoint_box .starpoint_bg{display:block;position:absolute;top:0;left:0;height:18px;background:url(https://ido-archive.github.io/svc/etc/element/img/sp_star.png) 0 -20px no-repeat;pointer-events:none;}
+	.starpoint_box .label_star{display:inline-block;width:10px;height:18px;box-sizing:border-box;}
+	.starpoint_box .star_radio{opacity:0;width:0;height:0;position:absolute;}
+	.starpoint_box .star_radio:nth-of-type(1):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(1):checked ~ .starpoint_bg{width:10%;}
+	.starpoint_box .star_radio:nth-of-type(2):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(2):checked ~ .starpoint_bg{width:20%;}
+	.starpoint_box .star_radio:nth-of-type(3):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(3):checked ~ .starpoint_bg{width:30%;}
+	.starpoint_box .star_radio:nth-of-type(4):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(4):checked ~ .starpoint_bg{width:40%;}
+	.starpoint_box .star_radio:nth-of-type(5):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(5):checked ~ .starpoint_bg{width:50%;}
+	.starpoint_box .star_radio:nth-of-type(6):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(6):checked ~ .starpoint_bg{width:60%;}
+	.starpoint_box .star_radio:nth-of-type(7):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(7):checked ~ .starpoint_bg{width:70%;}
+	.starpoint_box .star_radio:nth-of-type(8):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(8):checked ~ .starpoint_bg{width:80%;}
+	.starpoint_box .star_radio:nth-of-type(9):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(9):checked ~ .starpoint_bg{width:90%;}
+	.starpoint_box .star_radio:nth-of-type(10):hover ~ .starpoint_bg,
+	.starpoint_box .star_radio:nth-of-type(10):checked ~ .starpoint_bg{width:100%;}
+
+	.blind{position:absolute;clip:rect(0 0 0 0);margin:-1px;width:1px;height: 1px;overflow:hidden;}
+</style>
+<script>
+
+</script>
+<body style="height: 100%">
+<header id="header"><!--header-->
+	<div class="header-bottom"><!--header-bottom-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9" style="width: 100%">
+					<div class="mainmenu pull-left"style="width: 100%">
+						<div class="col-sm-2">
+							<button type="button" style="background-color: transparent; border: none;"onclick="location.href='/'">
+								<img src="/images/home/Mainlogo.png" style="width: 100px;"/>
+							</button>
+						</div>
+						<div class="col-sm-10" style="margin-top: 30px;" >
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;" href="/userInfo" class="active">회원정보</a>
+							</div>
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;" href="/product" class="active">코디</a>
+							</div>
+							<div class="col-sm-3">
+								<a style="font-size: 2em;color: #FE980F;" href="/userPick">회원추천 Pick</a>
+							</div>
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;"href="/login">Login</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/header-bottom-->
+</header><!--/header-->
+	
+	<section style="height: 61%">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-products-->
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#" style="color:#FE980F"> <span class="pull-right">(40)</span>Musinsa</a></li>
+								<li><a href="#" style="color:#FE980F"> <span class="pull-right">(30)</span>Hisfit</a></li>
+							</ul>
+						</div><!--/category-products-->
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img src="/images/product-details/1.jpg" alt="" />
+							</div>
+						</div>
+						<th:block th:each="user: ${userInfo}">
+						<div class="col-sm-7" style="height: 40vh;">
+							<div class="col-sm-12" style="height: 25%;border: 1px solid #FE980F">
+								<div class="col-sm-4" style="border-right: 3px solid #FE980F;height: 100%; ">
+									<h3 style="margin-top: 30%;">이름</h3>
+								</div>
+								<div class="col-sm-8">
+									<h3 style="margin-top: 13%;" th:text="${user.name}"></h3>
+								</div>
+							</div>
+
+							<div class="col-sm-12" style="height: 25%;border: 1px solid #FE980F">
+								<div class="col-sm-4" style="border-right: 3px solid #FE980F;height: 100%; ">
+									<h3 style="margin-top: 30%;">나이</h3>
+								</div>
+								<div class="col-sm-8">
+									<h3 style="margin-top: 13%;" th:text="${user.age}"></h3>
+								</div>
+							</div>
+
+							<div class="col-sm-12" style="height: 25%;border: 1px solid #FE980F">
+								<div class="col-sm-4" style="border-right: 3px solid #FE980F;height: 100%;">
+									<h3 style="margin-top: 30%;">이메일</h3>
+								</div>
+								<div class="col-sm-8">
+									<h3 style="margin-top: 13%;" th:text="${user.email}"></h3>
+								</div>
+							</div>
+							<div class="col-sm-12" style="height: 25% ;border: 1px solid #FE980F">
+								<div class="col-sm-4" style="border-right: 3px solid #FE980F;height: 100%;">
+									<h3 style="margin-top: 30%;">Tel</h3>
+								</div>
+								<div class="col-sm-8">
+									<h3 style="margin-top: 13%;"th:text="${user.tel}"></h3>
+								</div>
+
+							</div>
+						</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<button type="button" onclick="javascript:openPop()" style="position: relative; float: right; bottom: 100px;background-color: transparent;border: none;">
+	<img src="/images/home/Chatting.avif" alt="" style="width: 68px;"/>
+</button>
+<div class="popup_layer" id="popup_layer" style="display: none;">
+	<div class="popup_box">
+		<div style="height: 10px; width: 375px; float: top;">
+			<a href="javascript:closePop();"><img src="/images/home/ic_close.svg" class="m_header-banner-close" width="30px" height="30px"></a>
+		</div>
+		<!--팝업 컨텐츠 영역-->
+		<div class="popup_cont">
+			<h5> POPUP TILTE</h5>
+			<p>
+				!!!!!!!!!!!!!!!!!!!!<br>
+				~~~~~~~~~~~~~~~~~
+				@@@@@@@@@@@@@@@@@@@
+				%%%%%%%%%%%%%%%%
+				^^^^^^^^^^^^^^^^
+				&&&&&&&&&&&&&&
+				*************
+				((((((((((((((((
+
+			</p>
+
+		</div>
+		<!--팝업 버튼 영역-->
+		<div class="popup_btn" style="float: bottom; margin-top: 200px;">
+			<a href="javascript:closePop();">닫기</a>
+		</div>
+	</div>
+</div>
+</section>
+
+<footer id="footer"><!--Footer-->
+	<div class="footer-widget">
+		<div class="container">
+			<div class="row">
+				<h3 style="text-align: center;font-size: 3em"> Weather Cody</h3>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-bottom">
+		<div class="container" style="float: left;background-color:#D6D6D0; width: 100% ">
+			<div class="row">
+				<h3 style="font-size: 1em">Copyright © 2023.04 JMS. All rights reserved.</h3>
+			</div>
+		</div>
+	</div>
+
+</footer><!--/Footer-->
+
+  
+    <script src="/js/jquery.js"></script>
+	<script src="/js/price-range.js"></script>
+    <script src="/js/jquery.scrollUp.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.prettyPhoto.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

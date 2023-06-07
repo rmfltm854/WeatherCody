@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login | WeatherCody</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<script>
+	function openPop() {
+		document.getElementById("popup_layer").style.display = "block";
+
+	}
+	var number;
+	//팝업 닫기
+	function closePop() {
+		document.getElementById("popup_layer").style.display = "none";
+	}
+
+	function submitCheck() {
+		var age  = $('input[name=age]').val() ;
+		var pw  = $('input[name=pw]').eq('1').val() ;
+		var name  = $('input[name=name]').val() ;
+		var email  = $('input[name=email]').eq('1').val() ;
+		var tel  = $('input[name=tel]').val() ;
+		var emailNum = $('input[name=Emailnumber]').val() ;
+		$.ajax({
+			type : "POST",
+			url: '/signIn',
+			async:false,
+			dataType: 'text',
+			data: {name:name, age:age, tel:tel,email:email,pw:pw,emailNum:emailNum,number:number},
+			success: function(data) {
+				if (data == 0) {
+					alert('회원가입실패');
+					location.reload();
+				} else {
+					location.href = '/'; // home.do로 돌아가시면 됩니다.
+				}
+			}
+		}) ;
+	}
+
+	function mailSender(){// 메일 입력 유효성 검사
+		console.log("실행중");
+		var email = $('input[name=email]').eq('1').val(); //사용자의 이메일 입력값.
+		$.ajax({
+			type: 'post',
+			url: '/mail',
+			async:false,
+			data: {
+				email:email
+			},
+			dataType: 'text',
+			success:function(data) {
+				// number = data.value; // data로 받아온 List를 변수에 담기
+				number = data;
+			}
+		});
+		alert('인증번호가 전송되었습니다.' + number);
+	};
+
+	function Login(){
+		var email  = $('input[name=email]').eq('0').val() ;
+		var pw  = $('input[name=pw]').eq('0').val() ;
+		$.ajax({
+			type: 'POST',
+			url: '/loginForm',
+			async:false,
+			data: {
+				email:email,
+				pw : pw
+			},
+			dataType: 'text',
+			success:function(data) {
+				console.log(data)
+				// number = data.value; // data로 받아온 List를 변수에 담기
+				if(data == 1){
+					location.href = '/';
+				}else{
+					alert('로그인실패');
+					location.reload();
+				}
+			}
+		});
+	}
+
+	function checkNum(){
+		var msg = "<input type='text' placeholder='인증번호' class='input'id='EmailNum' name='Emailnumber' />";
+		document.getElementById('checkNum').innerHTML += msg;
+		const target = document.getElementById('EmailNum');
+		target.disabled = true;
+		mailSender();
+	}
+</script>
+
+<style>
+	/*popup*/
+	.popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); }
+	/*팝업 박스*/
+	.popup_box{position: relative;top:50%;left:50%; overflow: auto; height: 600px; width:375px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+	/*컨텐츠 영역*/
+	.popup_box .popup_cont {padding:50px;line-height:1.4rem;font-size:14px; }
+	.popup_box .popup_cont h2 {padding:15px 0;color:#333;margin:0;}
+	.popup_box .popup_cont p{ border-top: 1px solid #666;padding-top: 30px;}
+	/*버튼영역*/
+	.popup_box .popup_btn {display:table;table-layout: fixed;width:100%;height:70px;background:#ECECEC;word-break: break-word;}
+	.popup_box .popup_btn a {position: relative; display: table-cell; height:70px;  font-size:17px;text-align:center;vertical-align:middle;text-decoration:none; background:#ECECEC;}
+	.popup_box .popup_btn a:before{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+	.popup_box .popup_btn a:after{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+	.popup_box .popup_btn a.close_day {background:#5d5d5d;}
+	.popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after{display:none;}
+	/*오버레이 뒷배경*/
+	.popup_overlay{position:fixed;top:0px;right:0;left:0;bottom:0;z-index:1001;;background:rgba(0,0,0,0.5);}
+	/*popup*/
+</style>
+<body>
+<header id="header"><!--header-->
+	<div class="header-bottom"><!--header-bottom-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9" style="width: 100%">
+					<div class="mainmenu pull-left"style="width: 100%">
+						<div class="col-sm-2">
+							<button type="button" style="background-color: transparent; border: none;"onclick="location.href='/'">
+								<img src="/images/home/Mainlogo.png" style="width: 100px;"/>
+							</button>
+						</div>
+						<div class="col-sm-10" style="margin-top: 30px;" >
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;" href="/userInfo" class="active">회원정보</a>
+							</div>
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;" href="/product" class="active">코디</a>
+							</div>
+							<div class="col-sm-3">
+								<a style="font-size: 2em;color: #FE980F;" href="/userPick">회원추천 Pick</a>
+							</div>
+							<div class="col-sm-3">
+								<a  style="font-size: 2em;color: #FE980F;"href="/login">Login</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/header-bottom-->
+</header><!--/header-->
+	<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+					<div class="login-form"><!--login form-->
+						<h2>Login to your account</h2>
+						<form>
+							<input name="email" type="text" placeholder="E-mail" />
+							<input name="pw" type="password" placeholder="Password" />
+							<span>
+								<input type="checkbox" class="checkbox"> 
+								Keep me signed in
+							</span>
+							<button type="button" class="btn btn-default" onclick="javascript:Login()">Login</button>
+						</form>
+					</div><!--/login form-->
+				</div>
+				<div class="col-sm-1">
+					<h2 class="or">OR</h2>
+				</div>
+				<div class="col-sm-4">
+					<div class="signup-form"><!--sign up form-->
+						<h2>New User Signup!</h2>
+						<form>
+							<input name="name" type="text" placeholder="Name"/>
+							<input name="age" type="number" placeholder="Age"/>
+							<input name="tel" type="text" placeholder="Tel-Number(- 없이 입력해주세요!!)"/>
+							<input name="email" type="email" placeholder="Email Address"/>
+							<button type="button" class="checkButton" onclick="checkNum()" id="EmailNum">Email인증</button>
+							<div id="checkNum"></div>
+							<input name="pw" type="password" placeholder="Password"/>
+							<button type="button" class="btn btn-default" onclick="javascript:submitCheck()">Signup</button>
+						</form>
+					</div><!--/sign up form-->
+				</div>
+			</div>
+		</div>
+	</section><!--/form-->
+
+<button type="button" onclick="javascript:openPop()" style="position: relative; float: right; bottom: 100px;background-color: transparent;border: none;">
+	<img src="/images/home/Chatting.avif" alt="" style="width: 68px;"/>
+</button>
+<div class="popup_layer" id="popup_layer" style="display: none;">
+	<div class="popup_box">
+		<div style="height: 10px; width: 375px; float: top;">
+			<a href="javascript:closePop();"><img src="/images/home/ic_close.svg" class="m_header-banner-close" width="30px" height="30px"></a>
+		</div>
+		<!--팝업 컨텐츠 영역-->
+		<div class="popup_cont">
+			<h5> POPUP TILTE</h5>
+			<p>
+				!!!!!!!!!!!!!!!!!!!!<br>
+				~~~~~~~~~~~~~~~~~
+				@@@@@@@@@@@@@@@@@@@
+				%%%%%%%%%%%%%%%%
+				^^^^^^^^^^^^^^^^
+				&&&&&&&&&&&&&&
+				*************
+				((((((((((((((((
+
+			</p>
+
+		</div>
+		<!--팝업 버튼 영역-->
+		<div class="popup_btn" style="float: bottom; margin-top: 200px;">
+			<a href="javascript:closePop();">닫기</a>
+		</div>
+	</div>
+</div>
+</section>
+
+<footer id="footer"><!--Footer-->
+	<div class="footer-widget">
+		<div class="container">
+			<div class="row">
+				<h3 style="text-align: center;font-size: 3em"> Weather Cody</h3>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-bottom">
+		<div class="container" style="float: left;background-color:#D6D6D0; width: 100% ">
+			<div class="row">
+				<h3 style="font-size: 1em">Copyright © 2023.04 JMS. All rights reserved.</h3>
+			</div>
+		</div>
+	</div>
+
+</footer><!--/Footer-->
+
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.scrollUp.min.js"></script>
+<script src="/js/price-range.js"></script>
+<script src="/js/jquery.prettyPhoto.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

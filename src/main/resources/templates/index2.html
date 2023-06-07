@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | WeatherCody</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<script>
+	function openPop() {
+		document.getElementById("popup_layer").style.display = "block";
+
+	}
+
+	//팝업 닫기
+	function closePop() {
+		document.getElementById("popup_layer").style.display = "none";
+	}
+</script>
+
+<style>
+	/*popup*/
+	.popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); }
+	/*팝업 박스*/
+	.popup_box{position: relative;top:50%;left:50%; overflow: auto; height: 600px; width:375px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+	/*컨텐츠 영역*/
+	.popup_box .popup_cont {padding:50px;line-height:1.4rem;font-size:14px; }
+	.popup_box .popup_cont h2 {padding:15px 0;color:#333;margin:0;}
+	.popup_box .popup_cont p{ border-top: 1px solid #666;padding-top: 30px;}
+	/*버튼영역*/
+	.popup_box .popup_btn {display:table;table-layout: fixed;width:100%;height:70px;background:#ECECEC;word-break: break-word;}
+	.popup_box .popup_btn a {position: relative; display: table-cell; height:70px;  font-size:17px;text-align:center;vertical-align:middle;text-decoration:none; background:#ECECEC;}
+	.popup_box .popup_btn a:before{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+	.popup_box .popup_btn a:after{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+	.popup_box .popup_btn a.close_day {background:#5d5d5d;}
+	.popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after{display:none;}
+	/*오버레이 뒷배경*/
+	.popup_overlay{position:fixed;top:0px;right:0;left:0;bottom:0;z-index:1001;;background:rgba(0,0,0,0.5);}
+	/*popup*/
+	.weatherWidget{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	}
+</style>
+<body style="background-color: white">
+<div class="weatherWidget">
+<div  id="ww_ef7067e45137d" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl7405"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","cl_odd":"#00000000"}'>Weather for the Following Location: <a href="https://2ua.org/de/kor/gimhae/karte/" id="ww_ef7067e45137d_u" target="_blank">Gimhae karte</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_ef7067e45137d"></script>
+</div>
+	<header id="header" style="margin-top: 1%"><!--header-->
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9" style="width: 100%">
+						<div class="mainmenu pull-left"style="width: 100%">
+							<div class="col-sm-2">
+								<button type="button" style="background-color: transparent; border: none;" onclick="location.href='/'">
+									<img src="/images/home/Mainlogo.png" style="width: 100px;"/>
+								</button>
+							</div>
+							<div class="col-sm-10" style="margin-top: 30px;" >
+								<div class="col-sm-3">
+									<a  style="font-size: 2em;color: #FE980F;" href="/userInfo" class="active">회원정보</a>
+								</div>
+								<div class="col-sm-3">
+									<a  style="font-size: 2em;color: #FE980F;" href="/product" class="active">코디</a>
+								</div>
+								<div class="col-sm-3">
+									<a style="font-size: 2em;color: #FE980F;" href="/userPick">회원추천 Pick</a>
+								</div>
+								<div class="col-sm-3">
+									<a  style="font-size: 2em;color: #FE980F;"href="/login">Login</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<section id="slider"><!--slider-->
+		<div class="container">
+			<div class="row" style="position: relative">
+
+				<img src="/images/home/MainImage.jpg"style="width: 100%;height: 300px">
+				<div style="left:32%; width: 450px; bottom:94px; font-size: 5em;position: absolute;color: white">Weather Cody</div>
+			</div>
+		</div>
+	</section><!--/slider-->
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-products-->
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#" style="color:#FE980F"> <span class="pull-right">(40)</span>Musinsa</a></li>
+								<li><a href="#" style="color:#FE980F"> <span class="pull-right">(30)</span>Hisfit</a></li>
+							</ul>
+						</div><!--/category-products-->
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">회원추천 Best4</h2>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product1.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="/images/home/product2.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="/images/home/product3.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="/images/home/product4.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+									<img src="/images/home/new.png" class="new" alt="" />
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="/images/home/product5.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+									<img src="/images/home/sale.png" class="new" alt="" />
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="/images/home/product6.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+					</div><!--features_items-->
+					<div class="category-tab"><!--category-tab-->
+						<h2 class="title text-center">추천코디</h2>
+						<div class="features_items"><!--features_items-->
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product1.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product2.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product3.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product4.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+										<img src="/images/home/new.png" class="new" alt="" />
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product5.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+										<img src="/images/home/sale.png" class="new" alt="" />
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/images/home/product6.jpg" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+						</div><!--features_items-->
+					</div><!--/category-tab-->
+				</div>
+			</div>
+		</div>
+<!--		<a href="javascript:openPop()">-->
+<!--			<div>-->
+<!--				팝업오픈!-->
+<!--			</div>-->
+<!--		</a>-->
+		<button type="button" onclick="javascript:openPop()" style="position: relative; float: right; bottom: 100px;background-color: transparent;border: none;">
+			<img src="/images/home/Chatting.avif" alt="" style="width: 68px;"/>
+		</button>
+		<div class="popup_layer" id="popup_layer" style="display: none;">
+			<div class="popup_box">
+				<div style="height: 10px; width: 375px; float: top;">
+					<a href="javascript:closePop();"><img src="/images/home/ic_close.svg" class="m_header-banner-close" width="30px" height="30px"></a>
+				</div>
+				<!--팝업 컨텐츠 영역-->
+				<div class="popup_cont">
+					<h5> POPUP TILTE</h5>
+					<p>
+						!!!!!!!!!!!!!!!!!!!!<br>
+						~~~~~~~~~~~~~~~~~
+						@@@@@@@@@@@@@@@@@@@
+						%%%%%%%%%%%%%%%%
+						^^^^^^^^^^^^^^^^
+						&&&&&&&&&&&&&&
+						*************
+						((((((((((((((((
+
+					</p>
+
+				</div>
+				<!--팝업 버튼 영역-->
+				<div class="popup_btn" style="float: bottom; margin-top: 200px;">
+					<a href="javascript:closePop();">닫기</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer"><!--Footer-->
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<h3 style="text-align: center;font-size: 3em"> Weather Cody</h3>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container" style="float: left;background-color:#D6D6D0; width: 100% ">
+				<div class="row">
+					<h3 style="font-size: 1em">Copyright © 2023.04 JMS. All rights reserved.</h3>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src="/js/jquery.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/jquery.scrollUp.min.js"></script>
+	<script src="/js/price-range.js"></script>
+    <script src="/js/jquery.prettyPhoto.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
