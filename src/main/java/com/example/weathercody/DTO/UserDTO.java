@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private int idx;
 
     private String email;
 
@@ -26,7 +25,6 @@ public class UserDTO {
 
     public static UserDTO toDTO(UserJPA entity) {
         return UserDTO.builder()
-                .idx(entity.getIdx())
                 .name(entity.getName())
                 .age(entity.getAge())
                 .email(entity.getEmail())

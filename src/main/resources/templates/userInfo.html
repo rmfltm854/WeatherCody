@@ -107,10 +107,7 @@
 								<a  style="font-size: 2em;color: #FE980F;" href="/product" class="active">코디</a>
 							</div>
 							<div class="col-sm-3">
-								<a style="font-size: 2em;color: #FE980F;" href="/userPick">회원추천 Pick</a>
-							</div>
-							<div class="col-sm-3">
-								<a  style="font-size: 2em;color: #FE980F;"href="/login">Login</a>
+								<a  style="font-size: 2em;color: #FE980F;"href="/logout">로그아웃</a>
 							</div>
 						</div>
 
@@ -138,11 +135,7 @@
 				
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
-						<div class="col-sm-5">
-							<div class="view-product">
-								<img src="/images/product-details/1.jpg" alt="" />
-							</div>
-						</div>
+
 						<th:block th:each="user: ${userInfo}">
 						<div class="col-sm-7" style="height: 40vh;">
 							<div class="col-sm-12" style="height: 25%;border: 1px solid #FE980F">
